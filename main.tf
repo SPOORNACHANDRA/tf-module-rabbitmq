@@ -36,31 +36,32 @@ resource "aws_instance" "main" {
   subnet_id              = var.subnet_ids[0]
   tags                   = merge(local.tags, { Name = local.name_prefix })
   user_data              = file("${path.module}/userdata.sh")
+  #  user_data = "${path.module}/userdata.sh"
+  #  `user_data = "${path.module}/userdata.sh"`
+  #
+  #  path  is a variable will come automatically
+  #
+  #path.module is a module i.e, tf-module-rabbitmq whole
+  #
+  #path.root means roboshop-terraform
+  #
+  #/userdata.sh     where is your file
+  #
+  #if [userdata.sh](http://userdata.sh) is in roboshop-terraform now `user_data = "${path.root}/userdata.sh"`
+  #
+  #if [userdata.sh](http://userdata.sh) is in tf-module-rabbitmq  now `user_data = "${path.module}/userdata.sh"`
 
-#  root_block_device {
+
+  #  root_block_device {
 #    encrypted  = true
 #    kms_key_id = var.kms_key_id
 #  }
 }
 
-#resource "aws_route53_record" "main" {
-#  zone_id = var.zone_id
-#  name    = "rabbitmq-${var.env}"
-#  type    = "A"
-#  ttl     = 30
-#  records = [aws_instance.main.private_ip]
-#}
-#  user_data = "${path.module}/userdata.sh"
-#  `user_data = "${path.module}/userdata.sh"`
-#
-#  path  is a variable will come automatically
-#
-#path.module is a module i.e, tf-module-rabbitmq whole
-#
-#path.root means roboshop-terraform
-#
-#/userdata.sh     where is your file
-#
-#if [userdata.sh](http://userdata.sh) is in roboshop-terraform now `user_data = "${path.root}/userdata.sh"`
-#
-#if [userdata.sh](http://userdata.sh) is in tf-module-rabbitmq  now `user_data = "${path.module}/userdata.sh"`
+resource "aws_route53_record" "main" {
+  zone_id = var.zone_id
+  name    = "rabbitmq-${var.env}"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.main.private_ip]
+}
