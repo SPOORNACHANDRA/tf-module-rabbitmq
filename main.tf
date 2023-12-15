@@ -34,7 +34,7 @@ resource "aws_instance" "main" {
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
   subnet_id = var.subnet_ids[0]    #one subnet id only need becoz this is not a cluster to create in subnets one instance in one az only
-  tags        = merge(local.tags, { name = local.name_prefix })
+  tags        = merge(local.tags, { name = "${local.name_prefix}-rabbimq" })
 }
 #  user_data = "${path.module}/userdata.sh"
 #  `user_data = "${path.module}/userdata.sh"`
