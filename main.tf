@@ -52,9 +52,9 @@ resource "aws_instance" "main" {
   #if [userdata.sh](http://userdata.sh) is in tf-module-rabbitmq  now `user_data = "${path.module}/userdata.sh"`
 
 
-  #  root_block_device {
-#    encrypted  = true
-#    kms_key_id = var.kms_key_id
+    root_block_device {
+    encrypted  = true
+    kms_key_id = var.kms_key_id
 #  }
 }
 
