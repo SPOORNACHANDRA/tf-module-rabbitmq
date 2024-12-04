@@ -30,12 +30,12 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_instance" "main" {
-  ami                    = data.aws_ami.ami.id
+  ami           = data.aws_ami.ami.id
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
-  subnet_id              = var.subnet_ids[0]
-  tags                   = merge(local.tags, { Name = local.name_prefix })
-  user_data              = file("${path.module}/userdata.sh")
+  subnet_id     = var.subnet_ids[0]
+  tags = merge(local.tags, { Name = local.name_prefix })
+  user_data = file("${path.module}/userdata.sh")
   #  user_data = "${path.module}/userdata.sh"
   #  `user_data = "${path.module}/userdata.sh"`
   #
@@ -52,10 +52,11 @@ resource "aws_instance" "main" {
   #if [userdata.sh](http://userdata.sh) is in tf-module-rabbitmq  now `user_data = "${path.module}/userdata.sh"`
 
 
-    root_block_device {
+  root_block_device {
     encrypted  = true
     kms_key_id = var.kms_key_id
-#  }
+    #  }
+  }
 }
 
 resource "aws_route53_record" "main" {
